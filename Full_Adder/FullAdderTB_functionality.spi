@@ -1,0 +1,38 @@
+*** SPICE deck for cell FullAdderTB{sch} from library FullAdder
+*** Created on Wed Oct 04, 2023 18:21:40
+*** Last revised on Sun Oct 08, 2023 21:15:29
+*** Written on Sun Oct 08, 2023 21:15:48 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.01FF
+
+* cell 'FullAdder:FullAdder{sch}' is described in this file:
+.include FullAdder_RC_Extracted.spi
+
+*** SUBCIRCUIT inverter-assignment__inverter FROM CELL inverter-assignment:inverter{sch}
+.SUBCKT inverter-assignment__inverter gnd INP OUT vdd
+Mnmos@0 OUT INP gnd gnd nmos L=0.022U W=0.176U
+Mpmos@0 vdd INP OUT vdd pmos L=0.022U W=0.352U
+.ENDS inverter-assignment__inverter
+
+*** TOP LEVEL CELL: FullAdder:FullAdderTB{sch}
+Ccap@0 a_bar gnd {Cslew}
+Ccap@1 ci_bar gnd {Cslew}
+Ccap@2 s gnd {Cload}
+Ccap@3 co gnd {Cload}
+XFullAdde@0 a_bar b_bar ci_bar co gnd s vdd FullAdder
+Xinverter@3 gnd A a_bar vdd inverter-assignment__inverter
+Xinverter@4 gnd Ci ci_bar vdd inverter-assignment__inverter
+Xinverter@5 gnd B b_bar vdd inverter-assignment__inverter
+
+* Spice Code nodes in cell cell 'FullAdder:FullAdderTB{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd 0.8
+.param Cload = 10f
+.param Cslew = 10f
+v1 vdd gnd DC {vdd}
+v2 A gnd PULSE(0 {vdd} 400p 100p 100p 400p 1n)
+v3 B gnd PULSE(0 {vdd} 400p 100p 100p 400p 2n)
+v4 Ci gnd PULSE(0 {vdd} 400p 100p 100p 400p 4n)
+.tran 8n
+.END
+.END

@@ -1,0 +1,30 @@
+*** SPICE deck for cell TEST_NAND2{sch} from library NAND2_4X
+*** Created on Wed Aug 30, 2023 16:50:14
+*** Last revised on Wed Sep 06, 2023 16:37:17
+*** Written on Wed Sep 06, 2023 16:39:53 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+*** SUBCIRCUIT NAND2_4X__NAND2 FROM CELL NAND2_4X:NAND2{sch}
+.SUBCKT NAND2_4X__NAND2 A B Y
+** GLOBAL gnd
+** GLOBAL vdd
+Mnmos@0 Y B net@2 gnd nmos L=0.022U W=0.352U
+Mnmos@1 net@2 A gnd gnd nmos L=0.022U W=0.352U
+Mpmos@0 vdd B Y vdd pmos L=0.022U W=0.352U
+Mpmos@1 vdd A Y vdd pmos L=0.022U W=0.352U
+.ENDS NAND2_4X__NAND2
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: NAND2_4X:TEST_NAND2{sch}
+XNAND2@0 A B Y NAND2_4X__NAND2
+
+* Spice Code nodes in cell cell 'NAND2_4X:TEST_NAND2{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd=0.8
+v1 vdd gnd {vdd}
+v2 A gnd PULSE(0 {vdd} 400p 100p 100p 400p 1n)
+v3 B gnd PULSE(0 {vdd} 900p 100p 100p 900p 2n)
+.tran 0 2n
+.END

@@ -1,0 +1,62 @@
+*** SPICE deck for cell FullAdderTB{sch} from library FullAdder
+*** Created on Wed Oct 04, 2023 18:21:40
+*** Last revised on Sun Oct 08, 2023 21:00:27
+*** Written on Sun Oct 08, 2023 21:00:59 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.01FF
+
+* cell 'FullAdder:FullAdder{sch}' is described in this file:
+.include FullAdder_RC_Extracted.spi
+
+*** SUBCIRCUIT inverter-assignment__inverter FROM CELL inverter-assignment:inverter{sch}
+.SUBCKT inverter-assignment__inverter gnd INP OUT vdd
+Mnmos@0 OUT INP gnd gnd nmos L=0.022U W=0.176U
+Mpmos@0 vdd INP OUT vdd pmos L=0.022U W=0.352U
+.ENDS inverter-assignment__inverter
+
+*** TOP LEVEL CELL: FullAdder:FullAdderTB{sch}
+Ccap@0 a_bar gnd {Cslew}
+Ccap@1 ci_bar gnd {Cslew}
+Ccap@2 s gnd {Cload}
+Ccap@3 co gnd {Cload}
+XFullAdde@0 a_bar B ci_bar co gnd s vdd FullAdder
+Xinverter@3 gnd A a_bar vdd inverter-assignment__inverter
+Xinverter@4 gnd Ci ci_bar vdd inverter-assignment__inverter
+
+* Spice Code nodes in cell cell 'FullAdder:FullAdderTB{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd=0.8
+.step param Cslew 10f 200f 10f
+.step param Cload 10f 500f 50f
+*.param Cload = 500f
+*.param Cslew = 200f
+v1 vdd gnd DC {vdd}
+v2 A gnd PWL(0 0 5n 0 5.1n {vdd} 15.1n {vdd} 15.2n 0 50.4n 0)
+v3 Ci gnd PWL(0 0 30n 0 30.1n {vdd} 40.1n {vdd} 40.2n 0 50.4n 0)
+v4 B gnd 0
+.meas tran s_rise_delay
++trig v(a_bar) val={vdd/2} cross=2
++targ v(s) val={vdd/2} cross=2
+.meas tran a_fall_slew
++trig v(a_bar) val={0.9*vdd} cross=1
++targ v(a_bar) val={0.1*vdd} cross=1
+.meas tran s_fall_delay
++trig v(a_bar) val={vdd/2} cross=1
++targ v(s) val={vdd/2} cross=1
+.meas tran a_rise_slew
++trig v(a_bar) val={0.1*vdd} cross=2
++targ v(a_bar) val={0.9*vdd} cross=2
+.meas tran ci_fall_slew
++trig v(ci_bar) val={0.9*vdd} cross=1
++targ v(ci_bar) val={0.1*vdd} cross=1
+.meas tran ci_rise_slew
++trig v(ci_bar) val={0.1*vdd} cross=2
++targ v(ci_bar) val={0.9*vdd} cross=2
+.meas tran co_rise_slew
++trig v(co) val={0.1*vdd} cross=3
++targ v(co) val={0.9*vdd} cross=3
+.meas tran co_fall_slew
++trig v(co) val={0.9*vdd} cross=4
++targ v(co) val={0.1*vdd} cross=4
+.tran 0 50.4n
+.END

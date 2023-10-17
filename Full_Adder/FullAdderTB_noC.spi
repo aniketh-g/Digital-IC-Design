@@ -1,0 +1,33 @@
+*** SPICE deck for cell FullAdderTB{sch} from library FullAdder
+*** Created on Wed Oct 04, 2023 18:21:40
+*** Last revised on Sun Oct 08, 2023 15:28:13
+*** Written on Sun Oct 08, 2023 15:28:22 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.01FF
+
+* cell 'FullAdder:FullAdder{sch}' is described in this file:
+.include FullAdder_RC_Extracted.spi
+
+*** SUBCIRCUIT inverter-assignment__inverter FROM CELL inverter-assignment:inverter{sch}
+.SUBCKT inverter-assignment__inverter gnd INP OUT vdd
+Mnmos@0 OUT INP gnd gnd nmos L=0.022U W=0.176U
+Mpmos@0 vdd INP OUT vdd pmos L=0.022U W=0.352U
+.ENDS inverter-assignment__inverter
+
+*** TOP LEVEL CELL: FullAdder:FullAdderTB{sch}
+Ccap@0 A_bar gnd 10f
+Ccap@2 gnd Ci_bar 10f
+XFullAdde@0 A_bar B Ci_bar Cobar gnd Sbar vdd FullAdder
+Xinverter@1 gnd A A_bar vdd inverter-assignment__inverter
+Xinverter@2 gnd Ci Ci_bar vdd inverter-assignment__inverter
+
+* Spice Code nodes in cell cell 'FullAdder:FullAdderTB{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd 0.8
+v1 vdd gnd DC {vdd}
+v2 A gnd PULSE(0 {vdd} 400p 100p 100p 400p 2n)
+v3 B gnd 0
+v4 Ci gnd 0
+.tran 2n
+.END
+.END

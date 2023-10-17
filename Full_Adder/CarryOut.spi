@@ -1,0 +1,31 @@
+*** SPICE deck for cell CarryOut{sch} from library CarryOut
+*** Created on Tue Sep 26, 2023 23:41:57
+*** Last revised on Wed Sep 27, 2023 17:34:35
+*** Written on Wed Sep 27, 2023 17:34:39 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: CarryOut:CarryOut{sch}
+Mnmos@0 net@1 B gnd gnd nmos L=0.022U W=0.176U
+Mnmos@1 net@1 A gnd gnd nmos L=0.022U W=0.176U
+Mnmos@2 Cobar Ci net@1 gnd nmos L=0.022U W=0.176U
+Mnmos@3 net@8 B gnd gnd nmos L=0.022U W=0.088U
+Mnmos@4 Cobar A net@8 gnd nmos L=0.022U W=0.088U
+Mpmos@0 net@30 Ci Cobar vdd pmos L=0.022U W=0.352U
+Mpmos@1 vdd A net@30 vdd pmos L=0.022U W=0.352U
+Mpmos@2 vdd B net@30 vdd pmos L=0.022U W=0.352U
+Mpmos@3 net@39 A Cobar vdd pmos L=0.022U W=0.176U
+Mpmos@4 vdd B net@39 vdd pmos L=0.022U W=0.176U
+
+* Spice Code nodes in cell cell 'CarryOut:CarryOut{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd 0.8
+v1 vdd gnd DC {vdd}
+v2 A gnd PULSE(0 {vdd} 400p 100p 100p 400p 1n)
+v3 B gnd PULSE(0 {vdd} 400p 100p 100p 400p 2n)
+v4 Ci gnd PULSE(0 {vdd} 400p 100p 100p 400p 4n)
+.tran 8n
+.END
+.END

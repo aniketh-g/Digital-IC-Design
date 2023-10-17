@@ -1,0 +1,18 @@
+*** SPICE deck for cell inverter{lay} from library inverter-assignment
+*** Created on Wed Sep 06, 2023 15:45:42
+*** Last revised on Wed Sep 06, 2023 16:15:28
+*** Written on Wed Sep 06, 2023 16:27:08 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+*** TOP LEVEL CELL: inverter{lay}
+Mnmos@0 gnd INP OUT gnd nmos L=0.022U W=0.033U AS=0.004P AD=0.004P PS=0.275U PD=0.275U
+Mpmos@1 vdd INP OUT vdd pmos L=0.022U W=0.033U AS=0.004P AD=0.004P PS=0.275U PD=0.275U
+
+* Spice Code nodes in cell cell 'inverter{lay}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+v1 vdd gnd DC 0.8
+v2 INP gnd pwl(0 0 100p 0.8 1n 0.8 1.1n 0 2n 0)
+.tran 2.1n
+.END
+.END

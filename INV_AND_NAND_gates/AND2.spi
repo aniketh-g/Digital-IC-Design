@@ -1,0 +1,25 @@
+*** SPICE deck for cell AND2{sch} from library AND2
+*** Created on Wed Sep 06, 2023 17:44:28
+*** Last revised on Thu Sep 07, 2023 17:37:15
+*** Written on Thu Sep 07, 2023 17:37:21 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: AND2{sch}
+Mnmos@0 net@14 B net@8 gnd nmos L=0.022U W=0.352U
+Mnmos@1 net@8 A gnd gnd nmos L=0.022U W=0.352U
+Mnmos@2 OUT net@14 gnd gnd nmos L=0.022U W=0.176U
+Mpmos@0 vdd B net@14 vdd pmos L=0.022U W=0.352U
+Mpmos@1 vdd A net@14 vdd pmos L=0.022U W=0.352U
+Mpmos@2 vdd net@14 OUT vdd pmos L=0.022U W=0.352U
+
+* Spice Code nodes in cell cell 'AND2{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd=0.8
+v1 vdd gnd DC 0.8
+v2 A gnd pwl(0 0 100p {vdd} 0.5n {vdd} 0.6n 0 1n 0 1.1n {vdd} 1.5n {vdd} 1.6n 0 2n 0)
+v3 B gnd pwl(0 0 100p {vdd} 1n {vdd} 1.1n 0 2n 0)
+.tran 2.1n
+.END

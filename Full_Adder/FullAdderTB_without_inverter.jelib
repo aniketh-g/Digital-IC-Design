@@ -1,0 +1,58 @@
+# header information:
+HFullAdderTB|9.07
+
+# Views:
+Vicon|ic
+Vschematic|sch
+
+# External Libraries:
+
+LFullAdder|FullAdder
+
+Linverter-assignment|inverter-assignment
+
+# Technologies:
+Tmocmos|MininumCapacitanceINmocmos()D0.01|ScaleFORmocmos()D11.0
+
+# Cell FullAdderTB;1{sch}
+CFullAdderTB;1{sch}||schematic|1696423900921|1696424976766|
+IFullAdder:FullAdder;1{ic}|FullAdde@0||-1.5|2.75|||D5G4;
+Ngeneric:Facet-Center|art@0||0|0||||AV
+NCapacitor|cap@0||-13.5|4.5|||||SCHEM_capacitance(D5G1;)S100m
+NCapacitor|cap@1||-13.5|-11.25|||||SCHEM_capacitance(D5G1;)S100m
+NCapacitor|cap@2||13|4.25|||||SCHEM_capacitance(D5G1;)S100m
+NCapacitor|cap@3||5.75|-2.75|||||SCHEM_capacitance(D5G1;)S100m
+NOff-Page|conn@0||-39.25|6.5||||
+NOff-Page|conn@1||-39|-8.25||||
+NOff-Page|conn@2||17.5|-3.25||||
+NOff-Page|conn@3||17.5|-6||||
+NGround|gnd@0||-9.5|0.75||||
+NGround|gnd@1||-13.5|0.25||||
+NGround|gnd@2||-13.5|-15.75||||
+NGround|gnd@3||13|-0.25||||
+NGround|gnd@4||5.75|-7.5||||
+Iinverter-assignment:inverter;1{ic}|inverter@0||-25|6.5|||D5G4;
+Iinverter-assignment:inverter;1{ic}|inverter@1||-25.5|-8.25|||D5G4;
+NWire_Pin|pin@0||-6.5|-8.25||||
+NWire_Pin|pin@1||-13.5|-8.25||||
+Ngeneric:Invisible-Pin|pin@4||5.25|-16.5|||||SIM_spice_card(D5G1;)S[".include \"G:\\Acads\\Sem 7\\DIC\\22nm_HP.pm\"",.param vdd 0.8,*v1 vdd gnd DC {vdd},v2 A gnd PULSE(0 {vdd} 400p 100p 100p 400p 1n),v4 Ci gnd PULSE(0 {vdd} 400p 100p 100p 400p 2n),.tran 2n,.END]
+Awire|A_bar|D5G1;||1800|cap@0|a|-13.5|6.5|FullAdde@0|A|-6.5|6.5
+Awire|Ci_bar|D5G1;||1800|pin@1||-13.5|-8.25|pin@0||-6.5|-8.25
+Awire|Cout|D5G1;||0|cap@2|a|13|6.25|FullAdde@0|Cobar|3.5|6.25
+Awire|SUM|D5G1;||0|cap@3|a|5.75|-0.75|FullAdde@0|Sbar|3.5|-0.75
+Awire|gnd/B|D5G1;||0|FullAdde@0|B|-6.5|2.75|gnd@0||-9.5|2.75
+Awire|net@2|||1800|inverter@0|OUT|-17|6.5|cap@0|a|-13.5|6.5
+Awire|net@3|||2700|gnd@1||-13.5|2.25|cap@0|b|-13.5|2.5
+Awire|net@5|||900|FullAdde@0|Ci|-6.5|-1|pin@0||-6.5|-8.25
+Awire|net@6|||1800|inverter@1|OUT|-17.5|-8.25|pin@1||-13.5|-8.25
+Awire|net@8|||2700|cap@1|a|-13.5|-9.25|pin@1||-13.5|-8.25
+Awire|net@9|||2700|gnd@2||-13.5|-13.75|cap@1|b|-13.5|-13.25
+Awire|net@11|||2700|gnd@3||13|1.75|cap@2|b|13|2.25
+Awire|net@13|||2700|gnd@4||5.75|-5.5|cap@3|b|5.75|-4.75
+Awire|net@19|||1800|conn@0|y|-37.25|6.5|inverter@0|INP|-31|6.5
+Awire|net@20|||1800|conn@1|y|-37|-8.25|inverter@1|INP|-31.5|-8.25
+EA||D5G2;X-0.75;|conn@0|a|I
+ECi||D5G2;X-5;|conn@1|y|I
+ECout||D5G2;|conn@3|a|O
+ESUM||D5G2;|conn@2|a|O
+X

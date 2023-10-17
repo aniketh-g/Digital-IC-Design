@@ -1,0 +1,44 @@
+*** SPICE deck for cell AND2_FANOUT{sch} from library AND2
+*** Created on Thu Sep 07, 2023 17:21:00
+*** Last revised on Thu Sep 07, 2023 20:09:36
+*** Written on Thu Sep 07, 2023 20:09:42 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+*** SUBCIRCUIT NAND2_4X__NAND2 FROM CELL NAND2_4X:NAND2{sch}
+.SUBCKT NAND2_4X__NAND2 A B Y
+** GLOBAL gnd
+** GLOBAL vdd
+Mnmos@0 Y B net@2 gnd nmos L=0.022U W=0.352U
+Mnmos@1 net@2 A gnd gnd nmos L=0.022U W=0.352U
+Mpmos@0 vdd B Y vdd pmos L=0.022U W=0.352U
+Mpmos@1 vdd A Y vdd pmos L=0.022U W=0.352U
+.ENDS NAND2_4X__NAND2
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: AND2_FANOUT{sch}
+XNAND2@0 A B OUT NAND2_4X__NAND2
+XNAND2@1 A OUT NAND2@1_Y NAND2_4X__NAND2
+XNAND2@2 net@10 OUT NAND2@2_Y NAND2_4X__NAND2
+XNAND2@3 net@10 OUT NAND2@3_Y NAND2_4X__NAND2
+XNAND2@4 net@10 OUT NAND2@4_Y NAND2_4X__NAND2
+XNAND2@5 net@10 OUT NAND2@5_Y NAND2_4X__NAND2
+XNAND2@6 net@10 OUT NAND2@6_Y NAND2_4X__NAND2
+XNAND2@7 net@10 OUT NAND2@7_Y NAND2_4X__NAND2
+XNAND2@8 net@10 OUT NAND2@8_Y NAND2_4X__NAND2
+
+* Spice Code nodes in cell cell 'AND2_FANOUT{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd=0.8
+v1 vdd gnd DC 0.8
+v2 A gnd pwl(0 0 100p {vdd} 0.5n {vdd} 0.6n 0 1n 0 1.1n {vdd} 1.5n {vdd} 1.6n 0 2n 0)
+v3 B gnd pwl(0 0 100p {vdd} 1n {vdd} 1.1n 0 2n 0)
+.meas tran rise_delay
++trig v(A) val={vdd/2}cross=1
++targ v(OUT) val={vdd/2}cross=1
+.meas tran fall_delay
++trig v(A) val={vdd/2}cross=2
++targ v(OUT) val={vdd/2}cross=2
+.tran 2.1n
+.END

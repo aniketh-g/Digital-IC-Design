@@ -1,0 +1,50 @@
+*** SPICE deck for cell SumOut{sch} from library SumOut
+*** Created on Tue Oct 03, 2023 17:44:21
+*** Last revised on Wed Oct 04, 2023 16:18:28
+*** Written on Wed Oct 04, 2023 16:21:16 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+*CMOS/BULK-NWELL (PRELIMINARY PARAMETERS)
+.OPTIONS NOMOD DEFL=3UM DEFW=3UM DEFAD=70P DEFAS=70P LIMPTS=1000
++ITL5=0 RELTOL=0.01 ABSTOL=500PA VNTOL=500UV LVLTIM=2
++LVLCOD=1
+.MODEL N NMOS LEVEL=1
++KP=60E-6 VTO=0.7 GAMMA=0.3 LAMBDA=0.05 PHI=0.6
++LD=0.4E-6 TOX=40E-9 CGSO=2.0E-10 CGDO=2.0E-10 CJ=.2MF/M^2
+.MODEL P PMOS LEVEL=1
++KP=20E-6 VTO=0.7 GAMMA=0.4 LAMBDA=0.05 PHI=0.6
++LD=0.6E-6 TOX=40E-9 CGSO=3.0E-10 CGDO=3.0E-10 CJ=.2MF/M^2
+.MODEL DIFFCAP D CJO=.2MF/M^2
+
+*** SUBCIRCUIT SumOut FROM CELL SumOut:SumOut{sch}
+.SUBCKT SumOut A B Ci Cobar gnd Sbar vdd
+Mnmos@0 gnd A net@1 gnd N L=0.022U W=0.132U
+Mnmos@1 net@1 B net@2 gnd N L=0.022U W=0.132U
+Mnmos@2 net@2 Ci Sbar gnd N L=0.022U W=0.132U
+Mnmos@3 net@17 Ci gnd gnd N L=0.022U W=0.176U
+Mnmos@4 net@17 B gnd gnd N L=0.022U W=0.176U
+Mnmos@5 net@17 A gnd gnd N L=0.022U W=0.176U
+Mnmos@6 Sbar Cobar net@17 gnd N L=0.022U W=0.176U
+Mpmos@0 Sbar Ci net@4 vdd P L=0.022U W=0.264U
+Mpmos@1 net@4 B net@5 vdd P L=0.022U W=0.264U
+Mpmos@2 net@5 A vdd vdd P L=0.022U W=0.264U
+Mpmos@3 net@21 Cobar Sbar vdd P L=0.022U W=0.352U
+Mpmos@4 vdd B net@21 vdd P L=0.022U W=0.352U
+Mpmos@5 vdd Ci net@21 vdd P L=0.022U W=0.352U
+Mpmos@6 vdd A net@21 vdd P L=0.022U W=0.352U
+
+* Spice Code nodes in cell cell 'SumOut:SumOut{sch}'
+.include "G:\Acads\Sem 7\DIC\22nm_HP.pm"
+.param vdd 0.8
+v1 vdd gnd DC {vdd}
+v2 A gnd PULSE(0 {vdd} 400p 100p 100p 400p 1n)
+v3 B gnd PULSE(0 {vdd} 400p 100p 100p 400p 2n)
+v4 Ci gnd PULSE(0 {vdd} 400p 100p 100p 400p 4n)
+v5 Cobar gnd PULSE(0 {vdd} 400p 100p 100p 400p 8n)
+.tran 8n
+.END
+.ENDS SumOut
+
+
+XSumOut A B Ci Cobar gnd Sbar vdd SumOut
+

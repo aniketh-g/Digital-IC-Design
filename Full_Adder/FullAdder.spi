@@ -1,0 +1,10 @@
+*** SPICE deck for cell FullAdder{sch} from library FullAdder
+*** Created on Wed Oct 04, 2023 16:25:21
+*** Last revised on Sun Oct 08, 2023 00:13:38
+*** Written on Sun Oct 08, 2023 00:25:16 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.01FF
+
+* cell 'FullAdder{sch}' is described in this file:
+.include FullAdder_RC_Extracted.spi
+.END
